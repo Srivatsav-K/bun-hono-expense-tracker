@@ -3,9 +3,9 @@
   "module": "server/index.ts",
   "type": "module",
   "scripts": {
-    "install:client": "cd client && bun install --ci",
-    "install:server": "bun install --ci",
-    "install": "bun run install:server && bun run install:client",
+    "install:client": "cd client && bun install --frozen-lockfile",
+    "install:server": "bun install --frozen-lockfile",
+    "install:deps": "bun run install:server && bun run install:client",
     "build:client": "cd client && bun run build",
     "dev": "bun --watch server/index.ts",
     "start": "NODE_ENV=production && bun run server/index.ts"
