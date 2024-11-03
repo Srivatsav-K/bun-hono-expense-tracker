@@ -19,7 +19,7 @@ const AddExpense = () => {
   });
 
   return (
-    <>
+    <div className="max-w-3xl mx-auto">
       <ExpenseForm
         isLoading={isPending}
         handleSubmit={(data, setError) => {
@@ -31,7 +31,7 @@ const AddExpense = () => {
           });
         }}
       />
-    </>
+    </div>
   );
 };
 export default AddExpense;
