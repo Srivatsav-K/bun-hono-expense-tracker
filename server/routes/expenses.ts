@@ -1,6 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
+import { getUser } from "../middleware/authenticateUser";
 
 const fakeExpenses = [
   {
@@ -37,11 +38,12 @@ const getExpenseSchema = z.object({
 });
 
 export const expensesRouter = new Hono()
-  .get("/", (c) => {
-    // return c.json({ message: "test error" }, 400);
+  .get("/", getUser, (c) => {
+    const userId = c.var.user.id;
+    console.log("🚀 ~ .get ~ userId:", userId);
     return c.json(fakeExpenses);
   })
-  .get("/:id", zValidator("param", getExpenseSchema), (c) => {
+  .get("/:id", getUser, zValidator("param", getExpenseSchema), (c) => {
     const { id } = c.req.valid("param");
     const expense = fakeExpenses.find((expense) => expense.id === id);
     if (!expense) {
@@ -49,7 +51,7 @@ export const expensesRouter = new Hono()
     }
     return c.json(expense);
   })
-  .post("/", zValidator("json", createExpenseSchema), async (c) => {
+  .post("/", getUser, zValidator("json", createExpenseSchema), async (c) => {
     const body = c.req.valid("json");
     fakeExpenses.push({
       id: fakeExpenses.length + 1,

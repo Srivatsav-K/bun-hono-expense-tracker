@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Notfound = () => {
+  //TODO style it
   return (
     <div>
       Notfound
