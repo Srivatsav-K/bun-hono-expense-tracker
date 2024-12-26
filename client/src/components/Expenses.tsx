@@ -84,7 +84,7 @@ const Expenses = () => {
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
               <TableCell className="text-right">
-                $ {expenses?.reduce((prev, curr) => prev + curr.amount, 0)}
+                ₹ {expenses?.reduce((prev, curr) => prev + +curr.amount, 0)}
               </TableCell>
             </TableRow>
           </TableFooter>

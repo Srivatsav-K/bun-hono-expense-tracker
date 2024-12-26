@@ -11,6 +11,10 @@ declare module "hono" {
 export const getUser = createMiddleware(async (c, next) => {
   try {
     const userProfile = await kindeClient.getUserProfile(sessionManager(c));
+    if (!userProfile) {
+      return c.json({ error: "Unauthorised" }, 401);
+    }
+
     c.set("user", userProfile);
     await next();
   } catch (e) {

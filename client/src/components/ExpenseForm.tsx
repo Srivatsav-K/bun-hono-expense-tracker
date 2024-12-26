@@ -16,7 +16,9 @@ import { z } from "zod";
 
 const formSchema = z.object({
   title: z.string().min(3),
-  amount: z.number({ coerce: true }).positive(),
+  amount: z.string({ coerce: true }).regex(/^\d+(\.\d{1,2})?$/, {
+    message: "Amount must be a valid monetary value",
+  }),
 });
 
 export type ExpenseFormData = z.infer<typeof formSchema>;
@@ -33,7 +35,7 @@ type ExpenseFormProps = {
 const ExpenseForm = ({
   defaultValues = {
     title: "",
-    amount: 0,
+    amount: "0",
   },
   isLoading = false,
   handleSubmit,

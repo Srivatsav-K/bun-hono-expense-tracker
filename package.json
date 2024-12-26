@@ -8,10 +8,17 @@
     "install:deps": "bun run install:server && bun run install:client",
     "build:client": "cd client && bun run build",
     "dev": "bun --watch server/index.ts",
-    "start": "NODE_ENV=production && bun run server/index.ts"
+    "start": "NODE_ENV=production && bun run server/index.ts",
+    "db:generate-migration": "drizzle-kit generate",
+    "db:drop-migration": "drizzle-kit drop",
+    "db:migrate": "bun ./server/db/migrate.ts",
+    "db:studio": "drizzle-kit studio",
+    "db:push": "drizzle-kit push"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/pg": "^8.11.10",
+    "drizzle-kit": "^0.30.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -19,7 +26,10 @@
   "dependencies": {
     "@hono/zod-validator": "^0.4.1",
     "@kinde-oss/kinde-typescript-sdk": "^2.9.1",
+    "drizzle-orm": "^0.38.3",
+    "drizzle-zod": "^0.6.1",
     "hono": "^4.6.8",
+    "pg": "^8.13.1",
     "zod": "^3.23.8"
   }
 }
