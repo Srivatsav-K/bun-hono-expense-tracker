@@ -1,15 +1,19 @@
-# bun-expense-tracker
+# Expense tracker
 
-To install dependencies:
+This is a full stack application with simple UI but built using a modern typescript stack under the hood
 
-```bash
-bun install
-```
+## Tech stack
 
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.33. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+- [Bun](https://bun.sh/) as the JS runtime & package manager
+- [Hono](https://hono.dev/) as the backend server framework. Fast, lightweight, built on web standards. Supports any JavaScript runtime for deployment.
+- [Hono RPC](https://hono.dev/docs/guides/rpc) for end to end type safety between the server and the client.
+- [PostgresSQL](https://www.postgresql.org/) for database
+- [Drizzle ORM](https://orm.drizzle.team/) for typesafe queries
+- [Kinde](https://kinde.com/) for authentication & user management
+- [Zod](https://zod.dev/) for typeScript-first schema validation with static type inference on the server & client
+- [React](https://react.dev/) for the client side web application
+- [Vite](https://vite.dev/) as the client side dev server, proxy & bundler
+- [React router](https://reactrouter.com/) for client side routing
+- [Tailwind CSS](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/) for styling & UI components
+- [Tanstack query](https://tanstack.com/query/latest/docs/framework/react/overview) for asynchronous state management
+- [React hook form](https://react-hook-form.com/) as the form management library
