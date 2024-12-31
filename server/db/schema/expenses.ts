@@ -7,7 +7,7 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
+import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const expenses = pgTable(
@@ -29,12 +29,16 @@ export const expenses = pgTable(
     })
       .defaultNow()
       .notNull()
-      .$onUpdate(() => sql`CURRENT_TIMESTAMP()`), // update the time when the row is modified
+      .$onUpdate(() => sql`CURRENT_TIMESTAMP`), // update the time when the row is modified
   },
   (expenses) => {
     return [index("user_idx").on(expenses.userId)];
   }
 );
+
+export const expenseIdParamSchema = z.object({
+  id: z.number({ coerce: true }).positive(),
+});
 
 export const createExpenseSchema = createInsertSchema(expenses, {
   title: z.string().min(3),
@@ -50,6 +54,16 @@ export const createExpenseSchema = createInsertSchema(expenses, {
   })
   .strict();
 
-export const getExpenseByIdSchema = z.object({
-  id: z.number({ coerce: true }).positive(),
-});
+export const updateExpenseSchema = createUpdateSchema(expenses, {
+  title: z.string().min(3),
+  amount: z.string().regex(/^\d+(\.\d{1,2})?$/, {
+    message: "Amount must be a valid monetary value",
+  }),
+})
+  .omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+    userId: true, // Get from user auth middleware
+  })
+  .strict();
