@@ -39,3 +39,35 @@ export const createExpense = async (data: ExpenseFormData) => {
 
   return res.json();
 };
+
+export const updateExpense = async (
+  expenseId: string,
+  data: ExpenseFormData
+) => {
+  const res = await api.expenses[":id"].$patch({
+    param: {
+      id: expenseId,
+    },
+    json: data,
+  });
+
+  if (!res.ok) {
+    throw await parseError(res);
+  }
+
+  return res.json();
+};
+
+export const deleteExpense = async (expenseId: string) => {
+  const res = await api.expenses[":id"].$delete({
+    param: {
+      id: expenseId,
+    },
+  });
+
+  if (!res.ok) {
+    throw await parseError(res);
+  }
+
+  return res.json();
+};

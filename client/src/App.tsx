@@ -5,6 +5,7 @@ import Expenses from "./components/Expenses";
 import Home from "./components/Home";
 import Notfound from "./components/Notfound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import EditExpense from "./components/EditExpense";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/expenses/new" element={<AddExpense />} />
+          <Route path="/expenses/:expenseId" element={<EditExpense />} />
         </Route>
       </Route>
 

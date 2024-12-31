@@ -1,4 +1,4 @@
-import { getExpenses } from "@/api/expenses";
+import { useDeleteExpense, useExpenses } from "@/api/hooks/expenses";
 import {
   Table,
   TableBody,
@@ -9,20 +9,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useQuery } from "@tanstack/react-query";
+import { TrashIcon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
 
 const Expenses = () => {
-  const {
-    data: expenses,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["expenses"],
-    queryFn: getExpenses,
-  });
+  const { data: expenses, isLoading, error } = useExpenses();
+  const { mutate, isPending } = useDeleteExpense();
+  const { toast } = useToast();
 
   if (error) {
     return <pre className="bg-red-500">{JSON.stringify(error, null, 2)}</pre>;
@@ -48,7 +44,7 @@ const Expenses = () => {
             <TableHead className="w-[100px]">ID</TableHead>
             <TableHead>Title</TableHead>
             <TableHead className="text-right">Amount</TableHead>
-            {/* <TableHead>Date</TableHead> */}
+            <TableHead className="text-center">Delete</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -67,14 +63,44 @@ const Expenses = () => {
                     <TableCell className="text-right">
                       <Skeleton className="h-4" />
                     </TableCell>
+                    <TableCell className="text-center">
+                      <Skeleton className="h-4" />
+                    </TableCell>
                   </TableRow>
                 ))
             : expenses?.map((expense) => (
                 <TableRow key={expense.id}>
-                  <TableCell className="font-medium">{expense.id}</TableCell>
+                  <TableCell className="font-medium">
+                    <Link
+                      to={`/expenses/${expense.id}`}
+                      className="hover:underline"
+                      state={expense}
+                    >
+                      {expense.id}
+                    </Link>
+                  </TableCell>
                   <TableCell>{expense.title}</TableCell>
                   <TableCell className="text-right">{expense.amount}</TableCell>
-                  {/* <TableCell>{expense.date}</TableCell> */}
+                  <TableHead className="text-center py-2">
+                    <Button
+                      type="button"
+                      variant={"destructive"}
+                      disabled={isPending}
+                      onClick={() => {
+                        mutate(expense.id.toString(), {
+                          onError(error) {
+                            console.log("🚀 ~ onError ~ error:", error);
+                            toast({
+                              variant: "destructive",
+                              title: "Error deleting expense",
+                            });
+                          },
+                        });
+                      }}
+                    >
+                      <TrashIcon />
+                    </Button>
+                  </TableHead>
                 </TableRow>
               ))}
         </TableBody>
