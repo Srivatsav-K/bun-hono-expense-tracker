@@ -9,7 +9,7 @@ This is a full stack application with simple UI but built using a modern typescr
 - [Hono RPC](https://hono.dev/docs/guides/rpc) for end to end type safety between the server and the client.
 - [PostgresSQL](https://www.postgresql.org/) for database
 - [Drizzle ORM](https://orm.drizzle.team/) for typesafe queries
-- [Kinde](https://kinde.com/) for authentication & user management
+- [Kinde](https://kinde.com/) for authentication & user management (Google SSO, email 2FA)
 - [Zod](https://zod.dev/) for typeScript-first schema validation with static type inference on the server & client
 - [React](https://react.dev/) for the client side web application
 - [Vite](https://vite.dev/) as the client side dev server, proxy & bundler
