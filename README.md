@@ -17,3 +17,9 @@ This is a full stack application with simple UI but built using a modern typescr
 - [Tailwind CSS](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/) for styling & UI components
 - [Tanstack query](https://tanstack.com/query/latest/docs/framework/react/overview) for asynchronous state management
 - [React hook form](https://react-hook-form.com/) as the form management library
+
+## How to run
+
+- Ensure Docker is installed
+- Set the environment variables
+- Run `docker compose up` from the root dir

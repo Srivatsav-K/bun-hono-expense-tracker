@@ -8,7 +8,7 @@
     "install:deps": "bun run install:server && bun run install:client",
     "build:client": "cd client && bun run build",
     "dev": "bun --watch server/index.ts",
-    "start": "NODE_ENV=production && bun run server/index.ts",
+    "start": "NODE_ENV=production && bun run db:migrate && bun run server/index.ts",
     "db:generate-migration": "drizzle-kit generate",
     "db:drop-migration": "drizzle-kit drop",
     "db:migrate": "bun ./server/db/migrate.ts",

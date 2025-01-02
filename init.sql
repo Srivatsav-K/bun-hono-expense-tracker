@@ -1,0 +1,1 @@
+CREATE DATABASE bun_expense_tracker;
