@@ -6,6 +6,7 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 import {
+  createExpense,
   deleteExpense,
   getExpense,
   getExpenses,
@@ -28,6 +29,20 @@ export const useExpense = (expenseId: string, options: ExpenseQueryOptions) => {
     queryKey: ["expenses", expenseId],
     queryFn: () => getExpense(expenseId),
     ...options,
+  });
+};
+
+export const useCreateExpense = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: createExpense,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["expenses"],
+      });
+    },
   });
 };
 

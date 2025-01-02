@@ -1,22 +1,11 @@
-import { createExpense } from "@/api/expenses";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCreateExpense } from "@/api/hooks/expenses";
 import { useNavigate } from "react-router-dom";
 import ExpenseForm from "./ExpenseForm";
 
 const AddExpense = () => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { isPending, mutate } = useMutation({
-    mutationFn: createExpense,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["expenses"],
-      });
-
-      navigate("/expenses");
-    },
-  });
+  const { isPending, mutate } = useCreateExpense();
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -24,6 +13,9 @@ const AddExpense = () => {
         isLoading={isPending}
         handleSubmit={(data, setError) => {
           mutate(data, {
+            onSuccess() {
+              navigate("/expenses");
+            },
             onError: (e) => {
               console.log("🚀 ~ AddExpense ~ e:", e);
               setError("root", { message: "Something went wrong" });
