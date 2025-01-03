@@ -1,4 +1,4 @@
-import { getUserInfo } from "@/api/profile";
+import { getUserInfo } from "@/api/user";
 import { parseError } from "@/api/utils";
 import { useQuery } from "@tanstack/react-query";
 

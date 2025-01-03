@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Separator } from "./ui/separator";
 import { ModeToggle } from "./ModeToggle";
-import { useUser } from "@/hooks/useUser";
+import { useUser } from "@/api/hooks/user";
 
 const Navbar = () => {
   const { data: user, isLoading } = useUser();

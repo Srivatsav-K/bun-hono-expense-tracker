@@ -1,4 +1,4 @@
-import { useUser } from "@/hooks/useUser";
+import { useUser } from "@/api/hooks/user";
 import { Outlet } from "react-router-dom";
 import Loader from "./Loader";
 
