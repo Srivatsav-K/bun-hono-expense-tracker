@@ -76,7 +76,12 @@ const ExpenseForm = ({
               <FormItem>
                 <FormLabel>Amount</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter amount" type="number" {...field} />
+                  <Input
+                    placeholder="Enter amount"
+                    type="number"
+                    step="0.01"
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
